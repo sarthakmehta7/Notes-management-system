@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SLIET Notes Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div id="toast" class="toast"></div>
+
+<div id="authView" class="auth-shell">
+  <div class="auth-brand">
+    <div class="seal">SLIET</div>
+    <div><strong>Sant Longowal Institute of Engineering &amp; Technology</strong><span>Longowal • Student Academic Portal</span></div>
+  </div>
+  <div class="auth-layout">
+    <div class="hero-copy">
+      <span class="kicker">STUDENT KNOWLEDGE HUB</span>
+      <h1>All your notes.<br><em>One academic home.</em></h1>
+      <p>Find, upload and organize notes semester-wise, subject-wise and branch-wise in a secure student community.</p>
+      <div class="hero-points"><span>✓ Email verification</span><span>✓ Cloud-ready storage</span><span>✓ Semester organization</span></div>
+    </div>
+    <div class="auth-card">
+      <div class="portal-title"><span>SLIET</span> Notes Portal</div>
+      <div class="tabs"><button class="tab active" data-auth-tab="login">Student Login</button><button class="tab" data-auth-tab="register">Register</button><button class="tab" data-auth-tab="faculty">Faculty</button><button class="tab" data-auth-tab="admin">Admin</button></div>
+
+      <form id="loginForm" class="auth-form"><label>Student email</label><input id="loginEmail" type="email" placeholder="your@email.com" required><button class="primary full" type="submit">Continue with Email →</button></form>
+
+      <form id="facultyForm" class="auth-form hidden"><label>Faculty email</label><input id="facultyEmail" type="email" placeholder="faculty@sliet.ac.in" required><p class="auth-note">Faculty accounts are created and approved by the administrator.</p><button class="primary full" type="submit">Faculty Sign In →</button></form>
+
+      <form id="registerForm" class="auth-form hidden">
+        <label>Full name</label><input id="regName" placeholder="Your full name" required>
+        <label>Email address</label><input id="regEmail" type="email" placeholder="your@email.com" required>
+        <div class="two"><div><label>Roll number</label><input id="regRoll" placeholder="Roll No."></div><div><label>Branch</label><select id="regBranch"><option value="CSE">CSE</option><option value="ECE">ECE</option><option value="EE">Electrical</option><option value="ME">Mechanical</option><option value="CE">Civil</option><option value="FET">Food Engineering</option><option value="Other">Other</option></select></div></div>
+        <label>Current semester</label><select id="regSemester"><option value="">Select semester</option><option>1st Semester</option><option>2nd Semester</option><option>3rd Semester</option><option>4th Semester</option><option>5th Semester</option><option>6th Semester</option><option>7th Semester</option><option>8th Semester</option></select>
+        <button class="primary full" type="submit">Create Account &amp; Verify →</button>
+      </form>
+
+      <form id="adminForm" class="auth-form hidden"><label>Admin email</label><input id="adminEmail" type="email" required><label>Password</label><input id="adminPassword" type="password" required><button class="primary full" type="submit">Admin Sign In →</button></form>
+
+      <div id="otpBox" class="otp-box hidden"><div class="otp-top"><div><strong>Verify your email</strong><p>Enter the 6-digit code sent to <b id="otpEmail"></b>.</p></div><span>10 min</span></div><input id="otpCode" class="otp-input" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="one-time-code"><button id="verifyOtpBtn" class="primary full">Verify &amp; Enter Portal</button><button id="resendBtn" class="link-button">Resend code</button><p id="devOtpHint" class="dev-hint hidden"></p></div>
+      <p class="tiny muted">Your email is used for account verification and login codes.</p>
+    </div>
+  </div>
+</div>
+
+<div id="studentView" class="app-shell hidden">
+  <aside class="sidebar">
+    <div class="side-brand"><div class="seal small">SLIET</div><div><strong>SLIET</strong><span>Notes Portal</span></div></div>
+    <div class="side-label">Workspace</div>
+    <button class="nav-btn active" data-page="dashboard">⌂ <span>Dashboard</span></button>
+    <button class="nav-btn" data-page="browse">▣ <span>All Notes</span></button>
+    <button class="nav-btn" data-page="subjects">◈ <span>Subjects</span></button>
+    <button class="nav-btn" data-page="semesters">▤ <span>Semesters</span></button>
+    <button class="nav-btn" data-page="faculty">♙ <span>Faculty Members</span></button>
+    <button class="nav-btn" data-page="upload">↑ <span>Upload Notes</span></button>
+    <div class="side-label">Account</div>
+    <button class="nav-btn" data-page="profile">◎ <span>My Profile</span></button>
+    <button id="logoutBtn" class="nav-btn danger">↪ <span>Sign out</span></button>
+    <div class="side-footer">Sant Longowal Institute of Engineering &amp; Technology<br>Longowal, Punjab</div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar"><div><div class="eyebrow">Student workspace</div><h1 id="pageTitle">Dashboard</h1></div><div class="top-actions"><button class="icon-btn" data-page="browse">⌕</button><div class="user-pill"><div class="avatar" id="avatar">S</div><div><b id="topUserName">Student</b><small id="topUserMeta">CSE • Semester</small></div></div></div></header>
+
+    <section id="page-dashboard" class="page">
+      <div class="welcome-card"><div><span class="kicker">ACADEMIC KNOWLEDGE HUB</span><h2>Welcome back, <span id="welcomeName">Student</span>.</h2><p>Keep your semester notes organized and help your classmates learn faster.</p></div><button class="light-btn" data-go="upload">+ Upload Notes</button></div>
+      <div class="stat-grid"><div class="stat-card"><span>My uploads</span><strong id="statNotes">0</strong><small>Notes shared by you</small></div><div class="stat-card"><span>Downloads</span><strong id="statDownloads">0</strong><small>Total downloads of your notes</small></div><div class="stat-card"><span>Students</span><strong id="statStudents">0</strong><small>Verified student accounts</small></div><div class="stat-card"><span>Knowledge base</span><strong id="statAllNotes">0</strong><small>Total notes available</small></div></div>
+      <div class="section-head"><div><h2>Latest uploads</h2><p>Fresh notes from the student community.</p></div><button class="link-button" data-go="browse">Browse all →</button></div><div id="recentNotes" class="note-grid"></div>
+    </section>
+
+    <section id="page-browse" class="page hidden">
+      <div class="section-head"><div><h2>All Notes</h2><p>Search across the SLIET student knowledge base.</p></div></div>
+      <div class="filters"><input id="searchInput" placeholder="⌕  Search notes, subjects or students"><select id="subjectFilter"><option value="">All subjects</option></select><select id="categoryFilter"><option value="">All categories</option><option value="personal">Personal notes</option><option value="class">Class notes</option><option value="study-material">Study material</option><option value="assignment">Assignments</option><option value="project">Project notes</option><option value="reference">Reference material</option></select><select id="semesterFilter"><option value="">All semesters</option></select><select id="branchFilter"><option value="">All branches</option><option>CSE</option><option>ECE</option><option>EE</option><option>ME</option><option>CE</option><option>FET</option></select><button class="secondary" id="clearFilters">Clear</button></div>
+      <div id="notesGrid" class="note-grid"></div>
+    </section>
+
+    <section id="page-subjects" class="page hidden"><div class="section-head"><div><h2>Subjects</h2><p>Jump directly to notes for a subject.</p></div></div><div id="subjectsGrid" class="subject-grid"></div></section>
+
+    <section id="page-semesters" class="page hidden"><div class="section-head"><div><h2>Semester Library</h2><p>Organized study material by semester.</p></div></div><div class="semester-grid" id="semesterGrid"></div></section>
+
+    <section id="page-upload" class="page hidden">
+      <div class="section-head"><div><h2>Upload Notes</h2><p>Share useful material with your SLIET classmates.</p></div></div>
+      <form id="uploadForm" class="upload-card"><div class="upload-header"><div class="upload-symbol">↑</div><div><h3>New study material</h3><p>PDFs, documents and images are supported.</p></div></div>
+        <div class="form-grid"><div><label>Note title</label><input id="noteTitle" name="title" placeholder="e.g. DBMS Unit 1 Notes" required></div><div><label>Subject</label><input id="noteSubject" name="subject" placeholder="e.g. Database Management Systems" required></div><div><label>Category</label><select id="noteCategory" name="category"><option value="personal">Personal notes</option><option value="class">Class notes</option><option value="study-material" selected>Study material</option><option value="assignment">Assignment</option><option value="project">Project notes</option><option value="reference">Reference material</option></select></div><div><label>Tags</label><input id="noteTags" name="tags" placeholder="unit-1, exam, important"></div><div><label>Semester</label><select id="noteSemester" name="semester"><option value="">Select semester</option><option>1st Semester</option><option>2nd Semester</option><option>3rd Semester</option><option>4th Semester</option><option>5th Semester</option><option>6th Semester</option><option>7th Semester</option><option>8th Semester</option></select></div><div><label>Visibility</label><select id="noteVisibility" name="visibility"><option value="class">Classmates</option><option value="private">Only me</option><option value="public">All students</option></select></div><div><label>Branch</label><select id="noteBranch" name="branch"><option>CSE</option><option>ECE</option><option>EE</option><option>ME</option><option>CE</option><option>FET</option><option>Other</option></select></div><div class="full-span"><label>Description</label><textarea id="noteDescription" name="description" rows="4" placeholder="What does this note contain?"></textarea></div><div class="full-span"><label>File</label><div id="dropZone" class="drop-zone"><div class="drop-icon">＋</div><strong>Drop your file here or click to browse</strong><span>PDF • DOC/DOCX • PPT/PPTX • TXT • JPG/PNG/WEBP • Max 25 MB</span><input id="noteFile" name="file" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.webp,.gif" required></div><div id="selectedFile" class="selected-file hidden"></div></div></div><button class="primary" type="submit">Publish to Notes Library →</button>
+      </form>
+    </section>
+
+    <section id="page-profile" class="page hidden"><div class="profile-card"><div class="avatar big" id="profileAvatar">S</div><span class="kicker">VERIFIED STUDENT</span><h2 id="profileName">Student</h2><p id="profileEmail" class="muted"></p><div class="profile-details"><div><span>Roll number</span><strong id="profileRoll">—</strong></div><div><span>Branch</span><strong id="profileBranch">—</strong></div><div><span>Semester</span><strong id="profileSemester">—</strong></div><div><span>Member since</span><strong id="profileCreated">—</strong></div></div></div></section>
+    <section id="page-faculty" class="page hidden"><div class="section-head"><div><h2>Faculty Members</h2><p>Connect with faculty members managing academic resources.</p></div></div><div id="facultyMembersGrid" class="subject-grid"></div></section>
+  </main>
+</div>
+
+<div id="facultyView" class="app-shell hidden"><aside class="sidebar"><div class="side-brand"><div class="seal small">SLIET</div><div><strong>SLIET</strong><span>Faculty Dashboard</span></div></div><div class="side-label">Faculty workspace</div><button class="faculty-nav nav-btn active" data-faculty-page="overview">▦ <span>Overview</span></button><button class="faculty-nav nav-btn" data-faculty-page="notes">▣ <span>Notes</span></button><button class="faculty-nav nav-btn" data-faculty-page="activity">◌ <span>Activity</span></button><button id="facultyLogoutBtn" class="nav-btn danger">↪ <span>Sign out</span></button></aside><main class="main"><header class="topbar"><div><div class="eyebrow">Faculty workspace</div><h1 id="facultyPageTitle">Overview</h1></div><div class="user-pill">🎓 Faculty</div></header><section id="faculty-overview" class="faculty-page"><div class="stat-grid"><div class="stat-card"><span>Total notes</span><strong id="facultyNotes">0</strong></div><div class="stat-card"><span>Users</span><strong id="facultyUsers">0</strong></div><div class="stat-card"><span>Downloads</span><strong id="facultyDownloads">0</strong></div><div class="stat-card"><span>Storage</span><strong id="facultyStorage">0 MB</strong></div></div><div class="section-head"><div><h2>Category statistics</h2><p>Notes by category and usage.</p></div></div><div id="facultyCategories" class="subject-grid"></div></section><section id="faculty-notes" class="faculty-page hidden"><div class="section-head"><div><h2>Notes management</h2><p>Faculty can review shared notes.</p></div></div><div id="facultyNotesGrid" class="note-grid"></div></section><section id="faculty-activity" class="faculty-page hidden"><div class="section-head"><div><h2>User activity</h2><p>Portal activity summary.</p></div></div><div id="facultyActivity" class="subject-grid"></div></section></main></div>
+
+<div id="adminView" class="app-shell hidden"><aside class="sidebar"><div class="side-brand"><div class="seal small">SLIET</div><div><strong>SLIET</strong><span>Admin Console</span></div></div><div class="side-label">Administration</div><button class="admin-nav nav-btn active" data-admin-page="overview">▦ <span>Overview</span></button><button class="admin-nav nav-btn" data-admin-page="users">♙ <span>Students</span></button><button class="admin-nav nav-btn" data-admin-page="notes">▣ <span>Notes</span></button><button id="adminLogoutBtn" class="nav-btn danger">↪ <span>Sign out</span></button></aside><main class="main"><header class="topbar"><div><div class="eyebrow">Administration</div><h1 id="adminPageTitle">Overview</h1></div><div class="user-pill">🛡️ Administrator</div></header><section id="admin-overview" class="admin-page"><div class="stat-grid"><div class="stat-card"><span>Verified students</span><strong id="adminUsers">0</strong></div><div class="stat-card"><span>Total notes</span><strong id="adminNotes">0</strong></div><div class="stat-card"><span>Total downloads</span><strong id="adminDownloads">0</strong></div></div></section><section id="admin-users" class="admin-page hidden"><div class="section-head"><div><h2>Students</h2><p>Registered portal accounts.</p></div></div><div class="table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Branch</th><th>Semester</th><th>Notes</th><th>Joined</th><th></th></tr></thead><tbody id="usersTable"></tbody></table></div></section><section id="admin-notes" class="admin-page hidden"><div class="section-head"><div><h2>Notes</h2><p>Manage shared study material.</p></div></div><div class="table-wrap"><table><thead><tr><th>Title</th><th>Subject</th><th>Uploader</th><th>File</th><th>Downloads</th><th></th></tr></thead><tbody id="adminNotesTable"></tbody></table></div></section></main></div>
+
+<div id="previewModal" class="modal hidden"><div class="modal-card"><button class="modal-close" id="closeModal">×</button><h3 id="previewTitle">Preview</h3><div id="previewBody"></div></div></div>
+<script src="/app.js"></script>
+</body></html>
